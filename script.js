@@ -1,14 +1,40 @@
 let userChoice;
-let computerChoice = generateComputerchoice();
+let computerChoice;
 let keepAsking = true;
+let whoHaveWon;
+let computerWinCounter = 0;
+let userWinCounter = 0;
+
 
 while(keepAsking){
     alert("Welcome to Rock, Paper or Scissor GAME!!!!");
     userChoice = prompt('Enter the word "Paper","Rock" or "Scissor, To start playing"')
     userChoice = userChoice.toLowerCase();
+    computerChoice = generateComputerchoice();
     if((userChoice === "paper" || userChoice === "rock") || userChoice === "scissor"){
-        rockPaperScissor(userChoice, computerChoice);
+        if(userWinCounter === 5 ){
+        alert("You have won, The computer Lost")
         keepAsking = askToPlayAgain();
+        computerWinCounter = 0;
+        userWinCounter = 0;
+        }else if(computerWinCounter === 5){
+        alert("You have lost, The computer Won")
+        keepAsking = askToPlayAgain();
+        computerWinCounter = 0;
+        userWinCounter = 0;
+        }
+        else{
+            whoHaveWon = rockPaperScissor(userChoice, computerChoice);
+            if(whoHaveWon){
+            alert("You won, You score: " + ++userWinCounter + " Computer Score: " + computerWinCounter)
+        }else if(whoHaveWon === null){
+            alert("OMG We have a tie, You score: " + userWinCounter + " Computer Score: " + computerWinCounter)
+            
+        }
+        else{
+            alert("You lost, You score: " + userWinCounter + " Computer Score: " + ++computerWinCounter);
+        }
+        }
         
     }else{
         keepAsking = true;
@@ -38,15 +64,15 @@ while(keepAsking){
 
     function rockPaperScissor(userChoice,computerChoice){
         if(userChoice === computerChoice){
-            alert("OMG We have a tie")
+            return null;
         }else if((userChoice === "rock" && computerChoice === "scissor") 
             || (userChoice === "paper" && computerChoice === "rock")
             || (userChoice === "scissor" && computerChoice === "paper")){
-            alert("You won")
+            return true;
         }else if((userChoice === "rock" && computerChoice === "paper") 
             || (userChoice === "paper" && computerChoice === "scissor")
             || (userChoice === "scissor" && computerChoice === "rock")){
-            alert("You lost")
+            return false;
         }
 
     }
