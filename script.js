@@ -1,17 +1,18 @@
-let userChoice;
-let computerChoice;
+
 let keepAsking = true;
 let whoHaveWon;
 let computerWinCounter = 0;
 let userWinCounter = 0;
 
+alert("Welcome to Rock, Paper or Scissor GAME!!!!");
 
 while(keepAsking){
-    alert("Welcome to Rock, Paper or Scissor GAME!!!!");
-    userChoice = prompt('Enter the word "Paper","Rock" or "Scissor, To start playing"')
-    userChoice = userChoice.toLowerCase();
-    computerChoice = generateComputerchoice();
-    if((userChoice === "paper" || userChoice === "rock") || userChoice === "scissor"){
+    //Welcome and get User Input
+    let userChoice = getUserInput();
+    let computerChoice = generateComputerchoice();
+    
+    //Validate if the imput is valid just rock,paper,scissor 
+    if(isValid(userChoice)){
         if(userWinCounter === 5 ){
         alert("You have won, The computer Lost")
         keepAsking = askToPlayAgain();
@@ -43,24 +44,41 @@ while(keepAsking){
 }
 
 
+    function isValid(userChoice){
+        if((userChoice === "paper" || userChoice === "rock") || userChoice === "scissor" ){
+            return true
+        }
+        else{
+        return false
+        }
+    }
+
+    function getUserInput(){
+    let userChoice = prompt('Enter the word "Paper","Rock" or "Scissor, To start playing"')
+    userChoice = userChoice.toLowerCase();
+    return userChoice
+    }
+
+
     function generateComputerchoice(){
-        let computerNumberChoice;
-        let computerChoice;
-        computerNumberChoice = Math.floor(Math.random() * 3);
-        
-        switch(computerNumberChoice){
+        let computerNumberChoice = Math.floor(Math.random() * 3);
+
+        let computerChoice = () => {switch(computerNumberChoice){
             case 0:
-                computerChoice = "rock"
+                return "rock"
                 break;
             case 1:
-                computerChoice = "paper"
+                return "paper"
                 break;
             case 2:
-                computerChoice = "scissor"
+                return "scissor"
                 break
+            }
         }
-        return computerChoice;
+        return computerChoice();
     }
+
+    
 
     function rockPaperScissor(userChoice,computerChoice){
         if(userChoice === computerChoice){
@@ -78,7 +96,7 @@ while(keepAsking){
     }
 
     function askToPlayAgain(){
-        let keepPlaying = (prompt("Do you want to play again?  Yes:No?").toLowerCase() === "yes") ? true : false;
+        let keepPlaying = (prompt("Do you want to play again?  Yes : No?").toLowerCase() === "yes") ? true : false;
         return keepPlaying;
     }
 
