@@ -54,6 +54,7 @@ while(keepAsking){
     }
 
     function getUserInput(){
+    window.focus();
     let userChoice = prompt('Enter the word "Paper","Rock" or "Scissor, To start playing"')
     userChoice = userChoice.toLowerCase();
     return userChoice
